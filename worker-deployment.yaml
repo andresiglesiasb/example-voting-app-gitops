@@ -16,5 +16,5 @@ spec:
         app: worker
     spec:
       containers:
-      - image: andresiglesiasb/worker:v1.0.0
+      - image: andresiglesiasbarbara/worker:v1.0.0
         name: worker
