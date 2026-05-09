@@ -30,7 +30,7 @@ spec:
       volumes:
       - name: redis-data
         emptyDir: {}
-     - name: redis-exporter
+      - name: redis-exporter
         image: oliver006/redis_exporter:latest
         ports:
         - containerPort: 9121
