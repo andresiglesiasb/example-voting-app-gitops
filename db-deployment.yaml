@@ -14,6 +14,9 @@ spec:
     metadata:
       labels:
         app: db
+    annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9187"
     spec:
       containers:
       - image: postgres:15-alpine
@@ -32,3 +35,11 @@ spec:
       volumes:
       - name: db-data
         emptyDir: {} 
+      - name: postgres-exporter
+        image: prometheuscommunity/postgres-exporter:latest
+        ports:
+        - containerPort: 9187
+          name: metrics
+        env:
+        - name: DATA_SOURCE_NAME
+          value: postgresql://postgres:postgres@localhost:5432/postgres?sslmode=disable

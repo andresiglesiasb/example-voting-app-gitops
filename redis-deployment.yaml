@@ -14,6 +14,9 @@ spec:
     metadata:
       labels:
         app: redis
+    annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9121"
     spec:
       containers:
       - image: redis:alpine
@@ -26,4 +29,12 @@ spec:
           name: redis-data
       volumes:
       - name: redis-data
-        emptyDir: {} 
+        emptyDir: {}
+     - name: redis-exporter
+        image: oliver006/redis_exporter:latest
+        ports:
+        - containerPort: 9121
+          name: metrics
+        env:
+        - name: REDIS_ADDR
+          value: redis://localhost:6379
