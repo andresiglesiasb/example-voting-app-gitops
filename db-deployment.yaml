@@ -14,7 +14,7 @@ spec:
     metadata:
       labels:
         app: db
-    annotations:
+      annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9187"
     spec:
@@ -32,9 +32,6 @@ spec:
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           name: db-data
-      volumes:
-      - name: db-data
-        emptyDir: {} 
       - name: postgres-exporter
         image: prometheuscommunity/postgres-exporter:latest
         ports:
@@ -43,3 +40,6 @@ spec:
         env:
         - name: DATA_SOURCE_NAME
           value: postgresql://postgres:postgres@localhost:5432/postgres?sslmode=disable
+      volumes:
+      - name: db-data
+        emptyDir: {}
